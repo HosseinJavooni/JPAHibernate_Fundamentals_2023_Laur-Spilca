@@ -83,25 +83,10 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
     public Properties getProperties() {
         Properties properties = new Properties();
 
-        properties.setProperty(
-                "hibernate.dialect",
-                "org.hibernate.dialect.MySQLDialect"
-        );
-
-        properties.setProperty(
-                "hibernate.hbm2ddl.auto",
-                "update"
-        );
-
-        properties.setProperty(
-                "hibernate.show_sql",
-                "true"
-        );
-
-        properties.setProperty(
-                "hibernate.format_sql",
-                "true"
-        );
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
 
         return properties;
     }

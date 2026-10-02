@@ -2,7 +2,8 @@ package org.example;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.example.entity.Employee;
+import org.example.entity.Passport;
+import org.example.entity.Person;
 import org.example.persistence.CustomPersistenceUnitInfo;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
@@ -31,25 +32,14 @@ public class Main {
         try {
             entityManager.getTransaction().begin();
 
-//            Employee employee1 = new Employee();
-//            employee1.setName("John");
-//            employee1.setAddress("Tehran");
-//            Employee employee2 = new Employee();
-//            employee2.setName("Hossein");
-//            employee2.setAddress("Tehran");
-//            entityManager.persist(employee1);
-//            entityManager.persist(employee2);
-
-//            Employee employee = entityManager.find(Employee.class, 3L);
-//            System.out.println("Employee: " + employee.toString());
-//            employee.setName("Saeed");
-//            employee.setName("Jack");
-
-            Employee employee = new Employee();
-            employee.setId(6L);
-            employee.setAddress("Tehran-Ray");
-            employee.setName("Hossein Jabani");
-            entityManager.merge(employee);
+            Person person = new Person();
+            Passport passport = new Passport();
+            passport.setNumber("123");
+            passport.setAddress("123");
+            person.setPassport(passport);
+            passport.setPerson(person);
+            entityManager.persist(person);
+            entityManager.persist(passport);
 
             entityManager.getTransaction().commit();
         } finally {

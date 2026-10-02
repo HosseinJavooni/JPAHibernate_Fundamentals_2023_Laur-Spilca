@@ -2,7 +2,10 @@ package org.example;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.example.entity.Customer;
 import org.example.entity.Employee;
+import org.example.entity.Product;
+import org.example.keys.CustomerKey;
 import org.example.persistence.CustomPersistenceUnitInfo;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
@@ -20,7 +23,7 @@ public class Main {
          * implementation (here in org.example.persistence.CustomPersistenceUnitInfo class)
          */
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");
 
@@ -31,25 +34,33 @@ public class Main {
         try {
             entityManager.getTransaction().begin();
 
-//            Employee employee1 = new Employee();
-//            employee1.setName("John");
-//            employee1.setAddress("Tehran");
-//            Employee employee2 = new Employee();
-//            employee2.setName("Hossein");
-//            employee2.setAddress("Tehran");
-//            entityManager.persist(employee1);
-//            entityManager.persist(employee2);
-
-//            Employee employee = entityManager.find(Employee.class, 3L);
-//            System.out.println("Employee: " + employee.toString());
-//            employee.setName("Saeed");
-//            employee.setName("Jack");
-
             Employee employee = new Employee();
-            employee.setId(6L);
-            employee.setAddress("Tehran-Ray");
-            employee.setName("Hossein Jabani");
-            entityManager.merge(employee);
+            employee.setName("Hossein");
+            employee.setAddress("Tehran");
+
+            Product product = new Product();
+            product.setName("Harry Potter");
+            product.setId("n1");
+            product.setPrice(7800L);
+
+            Product product1 = new Product();
+            product1.setName("Harry Potter");
+            product1.setId("n2");
+            product1.setPrice(9800L);
+
+
+            CustomerKey customerKey = new CustomerKey();
+            customerKey.setFirstName("Mahan");
+            customerKey.setLastName("Jabani");
+            customerKey.setNumber(123L);
+            Customer customer = new Customer();
+            customer.setCustomerKey(customerKey);
+            customer.setTotalPurchaseAmount(340000L);
+
+            entityManager.persist(employee);
+            entityManager.persist(product);
+            entityManager.persist(product1);
+            entityManager.persist(customer);
 
             entityManager.getTransaction().commit();
         } finally {
