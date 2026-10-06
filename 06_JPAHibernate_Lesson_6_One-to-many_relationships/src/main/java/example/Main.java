@@ -1,11 +1,8 @@
-package org.example;
+package example;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.example.entity.Passport;
-import org.example.entity.Person;
-import org.example.entity.User;
-import org.example.persistence.CustomPersistenceUnitInfo;
+import example.persistence.CustomPersistenceUnitInfo;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import java.util.HashMap;
@@ -33,22 +30,7 @@ public class Main {
         try {
             entityManager.getTransaction().begin();
 
-            Person person = new Person();
-            Passport passport = new Passport();
-            passport.setNumber("123");
-            passport.setAddress("123");
-            person.setPassport(passport);
-//            passport.setPerson(person);
-            entityManager.persist(person);
-            entityManager.persist(passport);
 
-
-            User user = new User();
-            user.setName("Hossein");
-            user.setDescription("Hossein try hard to understand ORMs!");
-            user.setExtraDescription("Hossein try hard to understand IT world!");
-
-            entityManager.persist(user);
 
             entityManager.getTransaction().commit();
         } finally {

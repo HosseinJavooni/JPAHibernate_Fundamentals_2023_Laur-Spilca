@@ -1,4 +1,4 @@
-package org.example.persistence;
+package example.persistence;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;

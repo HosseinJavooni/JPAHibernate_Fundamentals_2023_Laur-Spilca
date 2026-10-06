@@ -19,6 +19,8 @@ public class Passport {
 
     private String address;
 
+    // If I don't use the mappedBy attribute with this definition
+    // Hibernate create a column with the name PERSON in the PASSPORT table!
     @OneToOne(mappedBy = "passport")
     @JoinColumn(name = "PERSON")
     private Person person;

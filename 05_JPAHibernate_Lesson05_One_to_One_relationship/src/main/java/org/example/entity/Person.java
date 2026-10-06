@@ -16,6 +16,6 @@ public class Person {
     private String name;
 
     @OneToOne/*(cascade = CascadeType.ALL)*/
-    @JoinColumn(name = "PASSPORT")
+    @JoinColumn(name = "PASSPORT_ID")
     private Passport passport;
 }
