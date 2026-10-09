@@ -20,10 +20,21 @@ public class Post {
 
     private String content;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",  fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL}/*,  CascadeType.MERGE, CascadeType.REMOVE}*/,
+            orphanRemoval = true)
 //    @JoinColumn(name = "POST_ID")
     private List<Comment> comments;
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", comments=" + comments +
+                '}';
+    }
 }
 
 
