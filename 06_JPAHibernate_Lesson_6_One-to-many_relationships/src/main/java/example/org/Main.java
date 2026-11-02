@@ -1,6 +1,6 @@
 package example.org;
 
-import example.org.entity.Comment;
+import example.org.entity.Product;
 import example.org.entity.Post;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -37,15 +37,15 @@ public class Main {
             post.setTitle("post 1");
             post.setContent("Hello post 1");
 
-            Comment comment0 = new Comment();
+            Product comment0 = new Product();
             comment0.setContent("Post 1 comment 0");
             comment0.setPost(post);
 
-            Comment comment1 = new Comment();
+            Product comment1 = new Product();
             comment1.setContent("Post 1 comment 1");
             comment1.setPost(post);
 
-            Comment comment2 = new Comment();
+            Product comment2 = new Product();
             comment2.setContent("Post 1 comment 2");
             comment2.setPost(post);
 

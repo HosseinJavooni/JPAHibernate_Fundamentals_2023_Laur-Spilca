@@ -24,7 +24,7 @@ public class Post {
             cascade = {CascadeType.ALL}/*,  CascadeType.MERGE, CascadeType.REMOVE}*/,
             orphanRemoval = true)
 //    @JoinColumn(name = "POST_ID")
-    private List<Comment> comments;
+    private List<Product> comments;
 
     @Override
     public String toString() {
