@@ -2,10 +2,14 @@ package org.example;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.example.entity.Book;
+import org.example.entity.ElectronicDevices;
+import org.example.entity.Product;
 import org.example.persistence.CustomPersistenceUnitInfo;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -30,7 +34,24 @@ public class Main {
         try {
             entityManager.getTransaction().begin();
 
+            Book book = new Book();
+            book.setAuthor("Jack");
+            book.setId(1L);
+            book.setProductType("Printed");
 
+            ElectronicDevices electronicDevices = new ElectronicDevices();
+            electronicDevices.setId(2L);
+            electronicDevices.setVoltage(220);
+            electronicDevices.setProductType("Electronic");
+
+            entityManager.persist(book);
+            entityManager.persist(electronicDevices);
+//            ElectronicDevices electronicDevices = entityManager.find(ElectronicDevices.class, 2);
+//            System.out.println(electronicDevices);
+
+//            var sql = "select p from Product p";
+//            List<Product> products = entityManager.createQuery(sql, Product.class).getResultList();
+//            System.out.println(products);
 
             entityManager.getTransaction().commit();
         } finally {
