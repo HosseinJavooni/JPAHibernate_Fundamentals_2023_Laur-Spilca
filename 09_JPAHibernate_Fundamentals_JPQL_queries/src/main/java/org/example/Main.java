@@ -43,13 +43,31 @@ public class Main {
             // SELECT p FROM Product p ==> Fetch all the attributes of the Product entity from the current context
             // SELECT * FROM product ==> Fetch all the columns from the table pruduct
 
-            TypedQuery typedQuery = entityManager.createQuery(jpql, Product.class);
+            // Using parameters
+            TypedQuery<Product> typedQuery = entityManager.createQuery(jpql, Product.class);
             typedQuery.setParameter("name", "%ul%");
             typedQuery.setParameter("price", 200);
             List<Product> products = typedQuery.getResultList();
-
-
             System.out.println(products);
+
+            // Using functions
+            var jpql2 = "select AVG(p.price) from Product p";
+            TypedQuery<Product> typedQuery2 = entityManager.createQuery(jpql2, Product.class);
+            System.out.println("Function result: " + typedQuery2.getSingleResult());
+
+            // Get selected results
+            var jpql3 = "select p.price, p.name from Product p";
+            TypedQuery<Object[]> typedQuery3 = entityManager.createQuery(jpql3, Object[].class);
+            typedQuery3.getResultList().forEach(r -> {
+                System.out.println(r[0] + " " + r[1]);
+            });
+
+            // Using group by
+            var jpql4 = "select p.price, AVG(p.price) from Product p GROUP BY p.price";
+            TypedQuery<Object[]> typedQuery4 = entityManager.createQuery(jpql4, Object[].class);
+            typedQuery4.getResultList().forEach(r -> {
+                System.out.println(r[0] + " " + r[1]);});
+
 
             entityManager.getTransaction().commit();
         } finally {
