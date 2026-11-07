@@ -7,6 +7,7 @@ import org.example.entity.Product;
 import org.example.persistence.CustomPersistenceUnitInfo;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +44,21 @@ public class Main {
             // SELECT p FROM Product p ==> Fetch all the attributes of the Product entity from the current context
             // SELECT * FROM product ==> Fetch all the columns from the table pruduct
 
-            TypedQuery typedQuery = entityManager.createQuery(jpql, Product.class);
+            TypedQuery<Product> typedQuery = entityManager.createQuery(jpql, Product.class);
             typedQuery.setParameter("name", "%ul%");
             typedQuery.setParameter("price", 200);
             List<Product> products = typedQuery.getResultList();
 
 
             System.out.println(products);
+
+            var jpql2= "select AVG(p.price) from Product p";
+            TypedQuery<Product> typedQuery2 = entityManager.createQuery(jpql2, Product.class);
+            System.out.println(typedQuery2.getResultList().getFirst());
+
+            var jpql3= "select p.price from Product p";
+            TypedQuery<BigDecimal> typedQuery3 = entityManager.createQuery(jpql3, BigDecimal.class);
+            System.out.println(typedQuery3.getResultList());
 
             entityManager.getTransaction().commit();
         } finally {
