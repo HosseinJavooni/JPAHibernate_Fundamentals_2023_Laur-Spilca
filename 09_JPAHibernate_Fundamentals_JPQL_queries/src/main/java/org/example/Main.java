@@ -44,21 +44,38 @@ public class Main {
             // SELECT p FROM Product p ==> Fetch all the attributes of the Product entity from the current context
             // SELECT * FROM product ==> Fetch all the columns from the table pruduct
 
+            // Using parameters
             TypedQuery<Product> typedQuery = entityManager.createQuery(jpql, Product.class);
             typedQuery.setParameter("name", "%ul%");
             typedQuery.setParameter("price", 200);
             List<Product> products = typedQuery.getResultList();
-
-
             System.out.println(products);
 
-            var jpql2= "select AVG(p.price) from Product p";
+            // Using functions
+            var jpql2 = "select AVG(p.price) from Product p";
             TypedQuery<Product> typedQuery2 = entityManager.createQuery(jpql2, Product.class);
-            System.out.println(typedQuery2.getResultList().getFirst());
+            System.out.println("Function result: " + typedQuery2.getSingleResult());
 
-            var jpql3= "select p.price from Product p";
-            TypedQuery<BigDecimal> typedQuery3 = entityManager.createQuery(jpql3, BigDecimal.class);
-            System.out.println(typedQuery3.getResultList());
+            // Get selected results
+            var jpql3 = "select p.price, p.name from Product p";
+            TypedQuery<Object[]> typedQuery3 = entityManager.createQuery(jpql3, Object[].class);
+            typedQuery3.getResultList().forEach(r -> {
+                System.out.println(r[0] + " " + r[1]);
+            });
+
+            // Using group by
+            var jpql4 = "select p.price, AVG(p.price) from Product p GROUP BY p.price";
+            TypedQuery<Object[]> typedQuery4 = entityManager.createQuery(jpql4, Object[].class);
+            typedQuery4.getResultList().forEach(r -> {
+                System.out.println(r[0] + " " + r[1]);});
+
+            var jpql5= "select AVG(p.price) from Product p";
+            TypedQuery<Product> typedQuery5 = entityManager.createQuery(jpql5, Product.class);
+            System.out.println(typedQuery5.getResultList().getFirst());
+
+            var jpql6= "select p.price from Product p";
+            TypedQuery<BigDecimal> typedQuery6 = entityManager.createQuery(jpql6, BigDecimal.class);
+            System.out.println(typedQuery6.getResultList());
 
             entityManager.getTransaction().commit();
         } finally {
