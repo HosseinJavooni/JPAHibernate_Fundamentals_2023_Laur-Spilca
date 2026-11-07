@@ -1,4 +1,4 @@
-package example.persistence;
+package org.example.persistence;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;
@@ -62,7 +62,9 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
     @Override
     public List<String> getManagedClassNames() {
         return List.of(
-                "org.example.entity.Product"
+                "org.example.entity.Course",
+                "org.example.entity.Student",
+                "org.example.entity.Enrollment"
         );
     }
 
